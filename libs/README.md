@@ -1,5 +1,5 @@
 ###Libraries
-- Binrary Tree
+- Binary Tree
 - Binary Search Tree
 - Linked List
 - Doubly linked list

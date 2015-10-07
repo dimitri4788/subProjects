@@ -2,7 +2,7 @@ Title:  This repo contains libraries (of data structures written by me) and prac
 Author: Deep Aggarwal  
 
 ###Libraries
-- Binrary Tree
+- Binary Tree
 - Binary Search Tree
 - Linked List
 - Doubly linked list
