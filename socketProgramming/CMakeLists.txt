@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 
 #Sets the name of the project and stores the name in the PROJECT_NAME variable
-project(key-value-store)
+project(socketProgramming)
 
 #Check for the Clang compiler location and set CMAKE_C_COMPILER and CMAKE_CXX_COMPILER
 #find_program(CLANG_COMPILER Clang)
