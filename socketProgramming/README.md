@@ -1,22 +1,24 @@
-Single Server (Key-Value Store)
-===============================
+Client-Server Socket Programming
+================================
 
-A single threaded server program that serves as a key-value store.  
-
-Description
------------
+A client-server socket programming example.
 
 How to Build
 ------------
+```sh
+$ mkdir build bin lib
+$ cd build
+$ cmake ..
+$ make
+```
 
 Usage
 -----
-
-
-Requirements
-------------
+$ cd bin
+$ ./server
+$ ./client
 
 Author
 ------
-Deep Aggarwal
-deep.uiuc@gmail.com
+Deep Aggarwal  
+deep.uiuc@gmail.com  
