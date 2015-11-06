@@ -14,9 +14,14 @@ $ make
 
 Usage
 -----
+```sh
 $ cd bin
+#Shell 1
 $ ./server
+
+#Shell 2
 $ ./client
+```
 
 Author
 ------
