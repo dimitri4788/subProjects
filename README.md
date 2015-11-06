@@ -1,7 +1,7 @@
 Title:  This repo contains libraries (of data structures written by me) and practice problems from various areas of Computer Science  
 Author: Deep Aggarwal  
 
-###Libraries
+###Libraries (inside libs)
 - Binary Tree
 - Binary Search Tree
 - Linked List
@@ -10,3 +10,6 @@ Author: Deep Aggarwal
 - Queue
 - Hash Table
 - Graph
+
+###Projects
+- Single Server Key-Value Store (in C with SQLite)

@@ -1,32 +1,3 @@
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
-
 # Created by https://www.gitignore.io/api/c
 
 ### C ###
@@ -62,3 +33,29 @@
 
 # Debug files
 *.dSYM/
+
+### CMake ###
+build
+build/
+build/*
+
+#Remove bin files
+bin/*
+bin/
+
+#Remove tags file
+tags
+
+#Remove logs directory
+logs/*
+logs/
+
+#Remove the database file
+lib/
+lib/*
+
+#Remove the pdf doc
+docs/
+docs/*
+
+.DS_Store
