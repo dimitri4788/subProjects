@@ -12,4 +12,4 @@ Author: Deep Aggarwal
 - Graph
 
 ###Projects
-- Single Server Key-Value Store (in C with SQLite)
+- Client-Server Socket Programming
