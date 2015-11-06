@@ -1,0 +1,61 @@
+# Created by https://www.gitignore.io/api/c
+
+### C ###
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
+# Debug files
+*.dSYM/
+
+### CMake ###
+build
+build/
+build/*
+
+#Remove bin files
+bin/*
+bin/
+
+#Remove tags file
+tags
+
+#Remove logs directory
+logs/*
+logs/
+
+#Remove the database file
+lib/
+lib/*
+
+#Remove the pdf doc
+docs/
+docs/*
+
+.DS_Store
