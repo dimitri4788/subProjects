@@ -25,3 +25,4 @@ set(PROJECT_SOURCE_DIR ${CMAKE_SOURCE_DIR}/src)
 
 #Add src subdirectory to the build
 add_subdirectory(src)
+add_subdirectory(test)

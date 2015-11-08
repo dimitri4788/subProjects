@@ -14,9 +14,16 @@ $ make
 
 Usage
 -----
+Running shell
 ```sh
 $ cd bin
 $ ./simpleShell
+```
+<br>
+Running unit-tests
+```sh
+$ cd bin
+$ ./test_log
 ```
 
 Author

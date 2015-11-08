@@ -55,8 +55,16 @@ char *logPop(log *l)
     l->size--;
     char *lastItem = l->tail->command;
     node *temp = l->tail;
-    l->tail = temp->prev;
-    l->tail->next = NULL;
+    if(l->size == 0)
+    {
+        l->head = NULL;
+        l->tail = NULL;
+    }
+    else
+    {
+        l->tail = temp->prev;
+        l->tail->next = NULL;
+    }
     free(temp);
 
     return lastItem;
@@ -93,6 +101,11 @@ char *logSearch(log *l, const char *prefix)
             break;
         }
         curr = curr->prev;
+    }
+
+    if(curr == NULL)
+    {
+        return NULL;
     }
 
     return curr->command;

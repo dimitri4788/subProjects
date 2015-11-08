@@ -1,4 +1,4 @@
-Title:  This repo contains libraries (of data structures written by me) and practice problems from various areas of Computer Science  
+Title: Contains libraries (of data structures), practice problems from various areas of CS and mini-projects.  
 Author: Deep Aggarwal  
 
 ###Libraries (inside libs)
