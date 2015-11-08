@@ -1,5 +1,8 @@
 #include "log.h"
 
+#include <stdlib.h>
+#include <string.h>
+
 void logConstructor(log *l)
 {
     l->size = 0;
@@ -22,7 +25,7 @@ void logDestructor(log *l)
     }
 }
 
-void logInsert(log *l, const char *data)
+void logInsert(log *l, char *data)
 {
     l->size++;
     node *newNode = (node *)malloc(sizeof(node));
@@ -59,7 +62,7 @@ char *logPop(log *l)
     return lastItem;
 }
 
-char *logAt(log *l, const unsigned int index)
+char *logAt(log *l, unsigned int index)
 {
     if(l->head == NULL)
         return NULL;
@@ -78,7 +81,21 @@ char *logAt(log *l, const unsigned int index)
 
 char *logSearch(log *l, const char *prefix)
 {
-    //TODO
+    if(l->head == NULL)
+        return NULL;
+
+    node *curr = l->tail;
+    unsigned int len = strlen(prefix);
+    while(curr != NULL)
+    {
+        if(strncmp(curr->command, prefix, len) == 0)
+        {
+            break;
+        }
+        curr = curr->prev;
+    }
+
+    return curr->command;
 }
 
 unsigned int logSize(log *l)

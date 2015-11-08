@@ -39,7 +39,7 @@ void logDestructor(log *l);
  * @param l Pointer to the log data structure.
  * @param data Pointer to a string to be added to the log.
  */
-void logInsert(log *l, const char *data);
+void logInsert(log *l, char *data);
 
 /**
  * @brief Removes and returns the last item in the log.
@@ -61,7 +61,7 @@ char *logPop(log *l);
  *
  * @returns The index-th entry in the log, or NULL if such an extry does not exist.
  */
-char *logAt(log *l, const unsigned int index);
+char *logAt(log *l, unsigned int index);
 
 /**
  * @brief Preforms a newest-to-oldest search of log entries for an entry matching a
