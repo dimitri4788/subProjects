@@ -8,15 +8,45 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
+char *trimWhiteSpaces(char *str)
+{
+    //Trim from the beginning
+    while(*str == ' ')
+        str++;
+
+    //Case of all spaces
+    if(*str == 0)
+        return str;
+
+    //Trim from the end
+    char *end = str + (strlen(str) - 1);
+    while(end > str && *end == ' ')
+        end--;
+
+    *(end + 1) = '\0';
+
+    return str;
+}
+
 int main(int argc, char **argv)
 {
     log l;
     logConstructor(&l);
 
+    pid_t simpleShellPid = getpid();
+    char buff[PATH_MAX+1];
+    char *cwd = NULL;
+
     while(1)
     {
+        cwd = getcwd(buff, PATH_MAX+1);
+        if(cwd == NULL)
+        {
+            cwd = "/dummy/path";
+        }
+
         //Print a command prompt
-        printf("[simpleShell]> ");
+        printf("(pid=%d)%s$ ", simpleShellPid, cwd);
 
         //Read the command from the stdin
         char *command = NULL;
@@ -24,28 +54,79 @@ int main(int argc, char **argv)
         ssize_t nBytesRead;
         nBytesRead = getline(&command, &commandLen, stdin);
         *(command + (nBytesRead-1)) = '\0';
-        printf("command: %s\n", command);
-        printf("nBytesRead: %zu\n", nBytesRead);
+        //printf("command: '%s'\n", command);
+        //printf("nBytesRead: %zu\n", nBytesRead);
 
-        //Execute the command
-        if()
+        //Remove the leading/trailing whitespaces from the command
+        char *trimmedCommand = trimWhiteSpaces(command);
+        //printf("command after trimming: '%s'\n", trimmedCommand);
+
+        /*
+         * Execute the command: built-in command and non built-in command.
+         * Built-in commands are executed without creating a new process, whereas
+         * a non built-in command is executed by creating a new process to execute the program for that
+         * particular command.
+         *
+         * Built-in commands: cd, exit and two commands (!# and !) based on a history feature.
+         *     !#: Prints a list of all the commands saved in the history separated by newlines.
+         *     !query: Re-executes the last command whose prefix matches query
+         *
+         * Non built-in commands: ls, pwd, ps, echo hello, and etc.
+         */
+        if(strncmp(trimmedCommand, "exit", 4) == 0)
         {
+            exit(0);
+        }
+        else if(strncmp(trimmedCommand, "cd", 2) == 0)
+        {
+            char *path = NULL;
+            int error;
+            if((nBytesRead-1) == 2)
+            {
+                //Change to home directory
+                path = getenv("HOME");
+                error = chdir(path);
+            }
+            else
+            {
+                //Change to the specified directory
+                path = trimmedCommand + 3;
+                error = chdir(path);
+            }
+
+            if(error == -1)
+            {
+                perror("Error while changing directory");
+            }
+            else
+            {
+                //Add the command to the log
+                logInsert(&l, trimmedCommand);
+            }
+        }
+        else if((strncmp(trimmedCommand, "!#", 2) == 0) && ((nBytesRead-1) == 2))
+        {
+            unsigned int sizeOfLog = logSize(&l);
+            if(sizeOfLog == 0)
+            {
+                printf("Nothing in the log history yet.\n");
+            }
+
+            for(int i = (sizeOfLog-1); i>=0; --i)
+            {
+                printf("%s\n", logAt(&l, i));
+            }
+        }
+        /*
+        else if((strncmp(trimmedCommand, "!", 1) == 0) && (*(trimmedCommand+1) != '#') && ((nBytesRead-1) > 1))
+        {
+            char *logSearch(log *l, const char *prefix);
+            printf("%s matches %s\n", query, match);
+            "No Match"
 
         }
-        else if()
-        {
+        */
 
-        }
-        else if()
-        {
-
-        }
-        else
-        {
-
-        }
-
-        free(command);
     }
 
     return 0;
