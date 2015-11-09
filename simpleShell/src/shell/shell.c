@@ -8,6 +8,13 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
+/**
+ * @brief Trims the leading/trailing whitespaces
+ *
+ * @param str The string from which the whitespaces need to be trimmed
+ *
+ * @return Returns the modified string
+ */
 char *trimWhiteSpaces(char *str)
 {
     //Trim from the beginning
@@ -26,6 +33,19 @@ char *trimWhiteSpaces(char *str)
     *(end + 1) = '\0';
 
     return str;
+}
+
+/**
+ * @brief Executes the non built-in commands
+ *
+ * @param command The command to execute
+ *
+ * @return On success, it returns 0 and 1 on failure.
+ */
+int executeNonBuiltInCommand(char *command)
+{
+    printf("executeNonBuiltInCommand(): command is: %s\n", command);
+    return 0;
 }
 
 int main(int argc, char **argv)
@@ -117,16 +137,42 @@ int main(int argc, char **argv)
                 printf("%s\n", logAt(&l, i));
             }
         }
-        /*
         else if((strncmp(trimmedCommand, "!", 1) == 0) && (*(trimmedCommand+1) != '#') && ((nBytesRead-1) > 1))
         {
-            char *logSearch(log *l, const char *prefix);
-            printf("%s matches %s\n", query, match);
-            "No Match"
+            char *retCommand = logSearch(&l, trimmedCommand+1);
+            if(retCommand != NULL)
+            {
+                printf("%s matches %s\n", (trimmedCommand+1), retCommand);
 
+                int retVal = executeNonBuiltInCommand(retCommand);
+                if(retVal == 0) //success
+                {
+                    //Add the command to the log
+                    logInsert(&l, retCommand);
+                }
+                else
+                {
+                    printf("%s: not found.\n", retCommand);
+                }
+            }
+            else
+            {
+                printf("No match found.\n");
+            }
         }
-        */
-
+        else
+        {
+            int retVal = executeNonBuiltInCommand(trimmedCommand);
+            if(retVal == 0) //success
+            {
+                //Add the command to the log
+                logInsert(&l, trimmedCommand);
+            }
+            else
+            {
+                printf("%s: not found.\n", trimmedCommand);
+            }
+        }
     }
 
     return 0;
