@@ -43,10 +43,10 @@ char **parseCommandAndFillArgs(char *command)
 
     char **args = NULL;
     int counter = 0;
+    char *token;
     int i = 0;
 
     //First run to count the number of tokens
-    char *token;
     token = strtok(command, " ");
     while(token != NULL)
     {
@@ -68,6 +68,9 @@ char **parseCommandAndFillArgs(char *command)
     //Assign NULL to the last pointer in args
     *(args + counter) = NULL;
 
+    //Free the memory allocated for commandCopy
+    free(commandCopy);
+
     return args;
 }
 
@@ -80,13 +83,8 @@ char **parseCommandAndFillArgs(char *command)
  */
 int executeNonBuiltInCommand(char *command)
 {
-    printf("executeNonBuiltInCommand(): command is: %s\n", command);//XXX
-
+    //printf("executeNonBuiltInCommand(): command is: %s\n", command);
     char **argsToExec = parseCommandAndFillArgs(command);
-    //printf("argsToExec[0] = %s\n", argsToExec[0]); 
-    //printf("argsToExec[1] = %s\n", argsToExec[1]); 
-    //printf("argsToExec[2] = %s\n", argsToExec[2]); 
-    //exit(0);
 
     int childStatus;
     pid_t waitPid;
@@ -95,8 +93,8 @@ int executeNonBuiltInCommand(char *command)
     {
         if(childPid == 0) //child process
         {
-            pid_t parentPid = getppid();
-            printf("Parent pid = %d", parentPid);
+            //pid_t parentPid = getppid();
+            //printf("Parent pid = %d", parentPid);
             int execRetval = execvp(argsToExec[0], argsToExec);
             if(execRetval == -1)
             {
@@ -105,7 +103,7 @@ int executeNonBuiltInCommand(char *command)
         }
         else //parent process
         {
-            printf("Child pid = %d", childPid);
+            //printf("Child pid = %d", childPid);
             //Wait for the child to terminate
             waitPid = wait(&childStatus);
             if(waitPid == -1)
@@ -154,12 +152,9 @@ int main(int argc, char **argv)
         ssize_t nBytesRead;
         nBytesRead = getline(&command, &commandLen, stdin);
         *(command + (nBytesRead-1)) = '\0';
-        //printf("command: '%s'\n", command); //XXX
-        //printf("nBytesRead: %zu\n", nBytesRead); //XXX
 
         //Remove the leading/trailing whitespaces from the command
         char *trimmedCommand = trimWhiteSpaces(command);
-        //printf("command after trimming: '%s'\n", trimmedCommand); //XXX
 
         /*
          * Execute the command: built-in command and non built-in command.
