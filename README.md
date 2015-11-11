@@ -14,3 +14,8 @@ Author: Deep Aggarwal
 ###Projects
 - Client-Server Socket Programming
 - Simple Unix Shell
+
+Author
+------
+Deep Aggarwal  
+deep.uiuc@gmail.com  
