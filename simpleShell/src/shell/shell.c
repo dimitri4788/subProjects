@@ -83,10 +83,10 @@ int executeNonBuiltInCommand(char *command)
     printf("executeNonBuiltInCommand(): command is: %s\n", command);//XXX
 
     char **argsToExec = parseCommandAndFillArgs(command);
-    printf("argsToExec[0] = %s\n", argsToExec[0]); 
-    printf("argsToExec[1] = %s\n", argsToExec[1]); 
-    printf("argsToExec[2] = %s\n", argsToExec[2]); 
-    exit(0);
+    //printf("argsToExec[0] = %s\n", argsToExec[0]); 
+    //printf("argsToExec[1] = %s\n", argsToExec[1]); 
+    //printf("argsToExec[2] = %s\n", argsToExec[2]); 
+    //exit(0);
 
     int childStatus;
     pid_t waitPid;
@@ -97,7 +97,11 @@ int executeNonBuiltInCommand(char *command)
         {
             pid_t parentPid = getppid();
             printf("Parent pid = %d", parentPid);
-            //int execRetval = execvp(args[0], args);
+            int execRetval = execvp(argsToExec[0], argsToExec);
+            if(execRetval == -1)
+            {
+                printf("%s: command not found.\n", argsToExec[0]);
+            }
         }
         else //parent process
         {
