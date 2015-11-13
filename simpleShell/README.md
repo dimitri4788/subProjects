@@ -5,7 +5,7 @@ A simple Unix shell interpreter (e.g., bash, csh etc.).
 
 Description
 -----------
-- Type of commands: *Built-in* commands and *non built-in* commands
+- Type of commands: *built-in* commands and *non built-in* commands
     - Built-in commands are executed without creating a new process
         - cd, exit and two commands (!# and !) based on a history feature
             - !#: Prints a list of all the commands saved in the history separated by newlines.
