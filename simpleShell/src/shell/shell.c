@@ -83,7 +83,6 @@ char **parseCommandAndFillArgs(char *command)
  */
 int executeNonBuiltInCommand(char *command)
 {
-    //printf("executeNonBuiltInCommand(): command is: %s\n", command);
     char **argsToExec = parseCommandAndFillArgs(command);
 
     int childStatus;
@@ -98,7 +97,7 @@ int executeNonBuiltInCommand(char *command)
             int execRetval = execvp(argsToExec[0], argsToExec);
             if(execRetval == -1)
             {
-                printf("%s: command not found.\n", argsToExec[0]);
+                return 1;
             }
         }
         else //parent process
@@ -199,6 +198,11 @@ int main(int argc, char **argv)
                 logInsert(&l, trimmedCommand);
             }
         }
+        else if((strncmp(trimmedCommand, "!", 1) == 0) && ((nBytesRead-1) == 1))
+        {
+            printf("%s: illegal command.\n", trimmedCommand);
+            exit(1);
+        }
         else if((strncmp(trimmedCommand, "!#", 2) == 0) && ((nBytesRead-1) == 2))
         {
             unsigned int sizeOfLog = logSize(&l);
@@ -215,11 +219,17 @@ int main(int argc, char **argv)
         else if((strncmp(trimmedCommand, "!", 1) == 0) && (*(trimmedCommand+1) != '#') && ((nBytesRead-1) > 1))
         {
             char *retCommand = logSearch(&l, trimmedCommand+1);
+
             if(retCommand != NULL)
             {
-                printf("%s matches %s\n", (trimmedCommand+1), retCommand);
+                //Create a copy of retCommand to be used with executeNonBuiltInCommand()
+                char *copyForExecuting = (char *)malloc((strlen(retCommand)+1) * sizeof(char));
+                strcpy(copyForExecuting, retCommand);
 
-                int retVal = executeNonBuiltInCommand(retCommand);
+                printf("%s matches %s\n", (trimmedCommand+1), copyForExecuting);
+
+
+                int retVal = executeNonBuiltInCommand(copyForExecuting);
                 if(retVal == 0) //success
                 {
                     //Add the command to the log
@@ -232,20 +242,24 @@ int main(int argc, char **argv)
             }
             else
             {
-                printf("No match found.\n");
+                printf("Nothing in the log history yet or no match found.\n");
             }
         }
         else
         {
+            //Create a copy so that we can add it to the log on success, this is because trimmedCommand gets modified in executeNonBuiltInCommand()
+            char *copyForLog = (char *)malloc((strlen(trimmedCommand)+1) * sizeof(char));
+            strcpy(copyForLog, trimmedCommand);
+
             int retVal = executeNonBuiltInCommand(trimmedCommand);
             if(retVal == 0) //success
             {
                 //Add the command to the log
-                logInsert(&l, trimmedCommand);
+                logInsert(&l, copyForLog);
             }
             else
             {
-                printf("%s: not found.\n", trimmedCommand);
+                printf("%s: not found.\n", copyForLog);
             }
         }
     }

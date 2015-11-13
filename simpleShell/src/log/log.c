@@ -29,7 +29,8 @@ void logInsert(log *l, char *data)
 {
     l->size++;
     node *newNode = (node *)malloc(sizeof(node));
-    newNode->command = data;
+    newNode->command = (char *)malloc((strlen(data)+1) * sizeof(char));
+    strcpy(newNode->command, data);
 
     if(l->head == NULL)
     {
