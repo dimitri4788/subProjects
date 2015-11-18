@@ -7,6 +7,7 @@
 - Queue
 - Hash Table
 - Graph
+- Logging Framework
 
 #TODO
 ...
