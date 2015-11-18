@@ -24,16 +24,19 @@ class SinglyLinkedList
         SinglyLinkedList();
         ~SinglyLinkedList();
 
-        Node *getHead() const;
         unsigned int getSize() const;
 
         bool addNodeInFront(int data);
         bool addNodeAtBack(int data);
-        bool deleteNode(int index);
+        bool deleteNodeByIndex(int index);
+        bool deleteNodeByData(int Data);
         int getNodeValue(int index);
+        bool isEmpty() const;
         void printList();
 
     private:
+        void clear();
+
         Node *_head;
         unsigned int _size;
 };

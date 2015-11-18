@@ -1,5 +1,7 @@
 #include "singlyLinkedList.hpp"
 
+#include <iostream>
+
 /*
  ********************
  ******* Node *******
@@ -45,10 +47,6 @@ void Node::setNext(const Node *next)
  ******* Singly Linked List *******
  **********************************
 */
-
-Node *_head;
-unsigned int _size;
-
 SinglyLinkedList::SinglyLinkedList()
 {
     _head = nullptr;
@@ -57,32 +55,71 @@ SinglyLinkedList::SinglyLinkedList()
 
 SinglyLinkedList::~SinglyLinkedList()
 {
-    if(_head != nullptr)
-
-
-}
-
-Node * SinglyLinkedList::getHead() const;
-{
-
+    clear();
 }
 
 unsigned int SinglyLinkedList::getSize() const
 {
-
+    return _size;
 }
 
 bool SinglyLinkedList::addNodeInFront(int data)
 {
-
+    Node *newNode = new Node(data);
+    newNode->_next = _head;
+    _head = newNode;
+    _size++;
 }
 
 bool SinglyLinkedList::addNodeAtBack(int data)
 {
+    Node *newNode = new Node(data);
+    if(_head == nullptr)
+    {
+        _head = newNode;
+    }
+    else
+    {
+        Node *curr = _head;
+        while(curr->_next != nullptr)
+            curr = curr->_next;
 
+        curr->_next = newNode;
+    }
+    _size++;
 }
 
-bool SinglyLinkedList::deleteNode(int index)
+bool SinglyLinkedList::deleteNodeByIndex(int index)
+{
+    if((index+1) > _size)
+        return false;
+    if(_head == nullptr)
+        return true;
+
+    Node *curr = _head;
+    if(index == 0)
+    {
+        _head = _head->_next;
+        delete curr;
+        _size--;
+        return true;
+    }
+
+    index--;
+    while(index > 0)
+    {
+        curr = curr->_next;
+        index--;
+    }
+
+    Node *temp = curr->_next;
+    curr->_next = temp->_next;
+    delete temp;
+    _size--;
+    return true;
+}
+
+bool SinglyLinkedList::deleteNodeByData(int Data)
 {
 
 }
@@ -92,7 +129,38 @@ int SinglyLinkedList::getNodeValue(int index)
 
 }
 
+bool SinglyLinkedList::isEmpty() const
+{
+    return _head == nullptr;
+}
+
 void SinglyLinkedList::printList()
 {
+    if(_head == nullptr)
+    {
+        std::cout << "List is empty." << std::endl;
+        return;
+    }
 
+    Node *curr = _head;
+    while(curr->_next != nullptr)
+    {
+        std::cout << curr->_data << " -> " << std::endl;
+        curr = curr->_next;
+    }
+    std::cout << curr->_data << std::endl;
+}
+
+void SinglyLinkedList::clear()
+{
+    Node *curr = _head;
+    while(curr != nullptr)
+    {
+        _head = _head->_next;
+        delete curr;
+        curr = _head;
+    }
+
+    _head = nullptr;
+    _size = 0;
 }

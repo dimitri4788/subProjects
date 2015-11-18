@@ -4,12 +4,13 @@ Author: Deep Aggarwal
 ###Libraries (inside libs)
 - Binary Tree
 - Binary Search Tree
-- Linked List
+- Singly Linked List
 - Doubly linked list
 - Stack
 - Queue
 - Hash Table
 - Graph
+- Logging Framework
 
 ###Projects
 - Client-Server Socket Programming

@@ -1,7 +1,7 @@
 ###Libraries
 - Binary Tree
 - Binary Search Tree
-- Linked List
+- Singly Linked List
 - Doubly linked list
 - Stack
 - Queue
@@ -9,5 +9,21 @@
 - Graph
 - Logging Framework
 
-#TODO
-...
+How to Build
+------------
+```sh
+$ mkdir build bin lib
+$ cd build
+$ cmake ..
+$ make
+```
+
+Usage
+-----
+```sh
+```
+
+Author
+------
+Deep Aggarwal  
+deep.uiuc@gmail.com  
