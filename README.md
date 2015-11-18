@@ -1,7 +1,7 @@
 Title: Contains libraries (of data structures), practice problems from various areas of CS and mini-projects.  
 Author: Deep Aggarwal  
 
-###Libraries (inside libs)
+###Libraries (inside libraries)
 - Binary Tree
 - Binary Search Tree
 - Singly Linked List
