@@ -7,17 +7,11 @@
  ******* Node *******
  ********************
 */
-Node::Node(int data)
-{
-    _data = data;
-    _next = nullptr;
-}
+Node::Node(int data) : _data(data), _next(nullptr)
+{}
 
-Node::Node(int data, Node *nextNode)
-{
-    _data = data;
-    _next = nextNode;
-}
+Node::Node(int data, Node *nextNode) : _data(data), _next(nextNode)
+{}
 
 Node::~Node()
 {}
@@ -47,11 +41,8 @@ void Node::setNext(const Node *next)
  ******* Singly Linked List *******
  **********************************
 */
-SinglyLinkedList::SinglyLinkedList()
-{
-    _head = nullptr;
-    _size = 0;
-}
+SinglyLinkedList::SinglyLinkedList() : _head(nullptr), _size(0)
+{}
 
 SinglyLinkedList::~SinglyLinkedList()
 {
@@ -63,7 +54,7 @@ unsigned int SinglyLinkedList::getSize() const
     return _size;
 }
 
-bool SinglyLinkedList::addNodeInFront(int data)
+bool SinglyLinkedList::insertFront(int data)
 {
     Node *newNode = new Node(data);
     newNode->_next = _head;
@@ -71,7 +62,7 @@ bool SinglyLinkedList::addNodeInFront(int data)
     _size++;
 }
 
-bool SinglyLinkedList::addNodeAtBack(int data)
+bool SinglyLinkedList::insertBack(int data)
 {
     Node *newNode = new Node(data);
     if(_head == nullptr)
@@ -89,42 +80,31 @@ bool SinglyLinkedList::addNodeAtBack(int data)
     _size++;
 }
 
-bool SinglyLinkedList::deleteNodeByIndex(int index)
+bool SinglyLinkedList::remove(int data)
 {
-    if((index+1) > _size)
-        return false;
     if(_head == nullptr)
         return true;
 
-    Node *curr = _head;
-    if(index == 0)
+    if(_size == 1 && _head->_data == data)
     {
-        _head = _head->_next;
-        delete curr;
+        delete _head;
+        _head = nullptr;
         _size--;
         return true;
     }
-
-    index--;
-    while(index > 0)
+    else
     {
-        curr = curr->_next;
-        index--;
+        return false;
+    }
+    Node *curr = _head;
+    while(curr->_next != null)
+    {
+
     }
 
-    Node *temp = curr->_next;
-    curr->_next = temp->_next;
-    delete temp;
-    _size--;
-    return true;
 }
 
-bool SinglyLinkedList::deleteNodeByData(int Data)
-{
-
-}
-
-int SinglyLinkedList::getNodeValue(int index)
+bool SinglyLinkedList::find(int data)
 {
 
 }

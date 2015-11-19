@@ -26,11 +26,10 @@ class SinglyLinkedList
 
         unsigned int getSize() const;
 
-        bool addNodeInFront(int data);
-        bool addNodeAtBack(int data);
-        bool deleteNodeByIndex(int index);
-        bool deleteNodeByData(int Data);
-        int getNodeValue(int index);
+        bool insertFront(int data);
+        bool insertBack(int data);
+        bool remove(int data);
+        bool find(int data);
         bool isEmpty() const;
         void printList();
 
