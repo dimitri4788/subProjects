@@ -3,6 +3,8 @@
 
 class Node
 {
+    friend class SinglyLinkedList;
+
     public:
         Node(int data);
         Node(int data, Node *nextNode);
@@ -11,7 +13,7 @@ class Node
         int getData() const;
         Node *getNext() const;
         void setData(const int data);
-        void setNext(const Node *next);
+        void setNext(Node * const next);
 
     private:
         int _data;
@@ -26,8 +28,8 @@ class SinglyLinkedList
 
         unsigned int getSize() const;
 
-        bool insertFront(int data);
-        bool insertBack(int data);
+        void insertFront(int data);
+        void insertBack(int data);
         bool remove(int data);
         bool find(int data);
         bool isEmpty() const;

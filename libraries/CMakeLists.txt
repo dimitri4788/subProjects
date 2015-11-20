@@ -37,7 +37,4 @@ add_subdirectory(test)
 
 #GTest Unit Tests
 enable_testing()
-#add_test(NAME ClientWolframLmTest COMMAND $<TARGET_FILE:test_client>)
-#add_test(NAME ParserConverterTest COMMAND $<TARGET_FILE:test_parser_converter>)
-#add_test(NAME RestApiTest COMMAND $<TARGET_FILE:test_rest_api>)
-#add_test(NAME FormatTimeTest COMMAND $<TARGET_FILE:test_format_time>)
+add_test(NAME SinglyLinkedListTest COMMAND $<TARGET_FILE:test_singlyLinkedList>)

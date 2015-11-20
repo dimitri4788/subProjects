@@ -31,7 +31,7 @@ void Node::setData(const int data)
     _data = data;
 }
 
-void Node::setNext(const Node *next)
+void Node::setNext(Node * const next)
 {
     _next = next;
 }
@@ -54,7 +54,7 @@ unsigned int SinglyLinkedList::getSize() const
     return _size;
 }
 
-bool SinglyLinkedList::insertFront(int data)
+void SinglyLinkedList::insertFront(int data)
 {
     Node *newNode = new Node(data);
     newNode->_next = _head;
@@ -62,7 +62,7 @@ bool SinglyLinkedList::insertFront(int data)
     _size++;
 }
 
-bool SinglyLinkedList::insertBack(int data)
+void SinglyLinkedList::insertBack(int data)
 {
     Node *newNode = new Node(data);
     if(_head == nullptr)
@@ -82,31 +82,47 @@ bool SinglyLinkedList::insertBack(int data)
 
 bool SinglyLinkedList::remove(int data)
 {
+    bool retVal = false;
+
     if(_head == nullptr)
         return true;
 
-    if(_size == 1 && _head->_data == data)
+    Node *curr = _head;
+    if(_head->_data == data)
     {
-        delete _head;
-        _head = nullptr;
+        _head = _head->_next;
+        delete curr;
         _size--;
         return true;
     }
-    else
-    {
-        return false;
-    }
-    Node *curr = _head;
-    while(curr->_next != null)
-    {
 
+    while(curr->_next != nullptr && curr != nullptr)
+    {
+        if(curr->_next->_data == data)
+        {
+            Node *temp = curr->_next;
+            curr->_next = temp->_next;
+            delete temp;
+            curr = curr->_next;
+            _size--;
+            retVal = true;
+        }
     }
-
+    return retVal;
 }
 
 bool SinglyLinkedList::find(int data)
 {
+    if(_head == nullptr)
+        return true;
 
+    Node *curr = _head;
+    while(curr != nullptr)
+    {
+        if(curr->_data == data)
+            return true;
+    }
+    return false;
 }
 
 bool SinglyLinkedList::isEmpty() const
