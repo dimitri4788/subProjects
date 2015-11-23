@@ -49,6 +49,11 @@ SinglyLinkedList::~SinglyLinkedList()
     clear();
 }
 
+Node * SinglyLinkedList::getHead() const
+{
+    return _head;
+}
+
 unsigned int SinglyLinkedList::getSize() const
 {
     return _size;
@@ -82,10 +87,8 @@ void SinglyLinkedList::insertBack(int data)
 
 bool SinglyLinkedList::remove(int data)
 {
-    bool retVal = false;
-
     if(_head == nullptr)
-        return true;
+        return false;
 
     Node *curr = _head;
     if(_head->_data == data)
@@ -96,6 +99,7 @@ bool SinglyLinkedList::remove(int data)
         return true;
     }
 
+    bool retVal = false;
     while(curr->_next != nullptr && curr != nullptr)
     {
         if(curr->_next->_data == data)
@@ -114,7 +118,7 @@ bool SinglyLinkedList::remove(int data)
 bool SinglyLinkedList::find(int data)
 {
     if(_head == nullptr)
-        return true;
+        return false;
 
     Node *curr = _head;
     while(curr != nullptr)

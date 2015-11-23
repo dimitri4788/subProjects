@@ -26,6 +26,7 @@ class SinglyLinkedList
         SinglyLinkedList();
         ~SinglyLinkedList();
 
+        Node *getHead() const;
         unsigned int getSize() const;
 
         void insertFront(int data);

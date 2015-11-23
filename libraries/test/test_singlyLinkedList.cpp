@@ -93,7 +93,6 @@ TEST(SinglyLinkedListTest, TestListRemove)
     EXPECT_EQ(1, sl.getSize());
 }
 
-/*
 //Test list remove() with one element and empty case
 TEST(SinglyLinkedListTest, TestListRemoveWithOneElementAndEmptyCase)
 {
@@ -108,20 +107,109 @@ TEST(SinglyLinkedListTest, TestListRemoveWithOneElementAndEmptyCase)
     EXPECT_EQ(0, sl.getSize());
     EXPECT_EQ(false, sl.remove(3));
 }
-*/
 
-/*
-unsigned int getSize() const;
+//Test list remove() with element not part of list
+TEST(SinglyLinkedListTest, TestListRemoveWrongElement)
+{
+    SinglyLinkedList sl;
+    EXPECT_EQ(false, sl.remove(2));
+}
 
-void insertFront(int data);
-void insertBack(int data);
-bool remove(int data);
-bool find(int data);
-bool isEmpty() const;
-void printList();
+//Test insertBack() with single element
+TEST(SinglyLinkedListTest, TestInsertBackWithSingleElement)
+{
+    SinglyLinkedList sl;
+    EXPECT_EQ(0, sl.getSize());
+    sl.insertBack(2);
+    EXPECT_EQ(1, sl.getSize());
+}
 
-void clear();
+//Test insertBack() with multiple elements
+TEST(SinglyLinkedListTest, TestInsertBackWithMultipleElements)
+{
+    SinglyLinkedList sl;
+    EXPECT_EQ(0, sl.getSize());
+    sl.insertBack(2);
+    sl.insertBack(3);
+    sl.insertBack(4);
+    EXPECT_EQ(3, sl.getSize());
+}
 
-Node *_head;
-unsigned int _size;
-*/
+//Test insertBack() with multiple duplicate elements
+TEST(SinglyLinkedListTest, TestInsertBackWithMultipleDuplicateElements)
+{
+    SinglyLinkedList sl;
+    EXPECT_EQ(0, sl.getSize());
+    sl.insertBack(2);
+    sl.insertBack(2);
+    sl.insertBack(2);
+    EXPECT_EQ(3, sl.getSize());
+}
+
+//Test insertFront() with single element
+TEST(SinglyLinkedListTest, TestInsertFrontWithSingleElement)
+{
+    SinglyLinkedList sl;
+    EXPECT_EQ(0, sl.getSize());
+    sl.insertFront(2);
+    EXPECT_EQ(1, sl.getSize());
+}
+
+//Test insertFront() with multiple elements
+TEST(SinglyLinkedListTest, TestInsertFrontWithMultipleElements)
+{
+    SinglyLinkedList sl;
+    EXPECT_EQ(0, sl.getSize());
+    sl.insertFront(2);
+    sl.insertFront(3);
+    sl.insertFront(4);
+    sl.insertFront(5);
+    EXPECT_EQ(4, sl.getSize());
+}
+
+//Test insertFront() with multiple duplicate elements
+TEST(SinglyLinkedListTest, TestInsertFrontWithMultipleDuplicateElements)
+{
+    SinglyLinkedList sl;
+    EXPECT_EQ(0, sl.getSize());
+    sl.insertFront(2);
+    sl.insertFront(2);
+    sl.insertFront(2);
+    sl.insertFront(2);
+    EXPECT_EQ(4, sl.getSize());
+}
+
+//Test find()
+TEST(SinglyLinkedListTest, TestFind)
+{
+    SinglyLinkedList sl;
+    EXPECT_EQ(0, sl.getSize());
+    sl.insertFront(2);
+    EXPECT_EQ(true, sl.find(2));
+    sl.remove(2);
+    EXPECT_EQ(false, sl.find(2));
+    EXPECT_EQ(false, sl.find(44));
+}
+
+//Test isEmpty()
+TEST(SinglyLinkedListTest, TestIsEmpty)
+{
+    SinglyLinkedList sl;
+    EXPECT_EQ(0, sl.getSize());
+    EXPECT_EQ(true, sl.isEmpty());
+    sl.insertFront(2);
+    EXPECT_EQ(false, sl.isEmpty());
+    sl.remove(2);
+    EXPECT_EQ(true, sl.isEmpty());
+}
+
+//Test getHead()
+TEST(SinglyLinkedListTest, TestGetHead)
+{
+    SinglyLinkedList sl;
+    EXPECT_EQ(nullptr, sl.getHead());
+    sl.insertFront(2);
+    EXPECT_NE(nullptr, sl.getHead());
+    sl.remove(2);
+    EXPECT_EQ(nullptr, sl.getHead());
+}
