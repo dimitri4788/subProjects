@@ -213,3 +213,24 @@ TEST(SinglyLinkedListTest, TestGetHead)
     sl.remove(2);
     EXPECT_EQ(nullptr, sl.getHead());
 }
+
+//Test printList()
+TEST(SinglyLinkedListTest, TestPrintList)
+{
+    //Capture stdout and save into a buffer
+    std::stringstream buffer; //This can be an ofstream as well or any other ostream
+    std::streambuf *sbuf = std::cout.rdbuf(); //Save cout's buffer here
+    std::cout.rdbuf(buffer.rdbuf()); //Redirect cout to stringstream buffer or any other ostream
+
+    SinglyLinkedList sl;
+    sl.insertFront(2);
+    sl.insertFront(37);
+    sl.insertFront(6);
+    sl.insertFront(89);
+    sl.printList();
+
+    EXPECT_EQ("89 -> 6 -> 37 -> 2\n", buffer.str());
+
+    //Redirect cout to its old self
+    std::cout.rdbuf(sbuf);
+}

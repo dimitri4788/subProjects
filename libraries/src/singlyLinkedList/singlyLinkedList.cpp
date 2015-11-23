@@ -145,7 +145,7 @@ void SinglyLinkedList::printList()
     Node *curr = _head;
     while(curr->_next != nullptr)
     {
-        std::cout << curr->_data << " -> " << std::endl;
+        std::cout << curr->_data << " -> ";
         curr = curr->_next;
     }
     std::cout << curr->_data << std::endl;
