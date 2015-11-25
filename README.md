@@ -1,7 +1,9 @@
-Title: Contains libraries (of data structures), practice problems from various areas of CS and mini-projects.  
-Author: Deep Aggarwal  
+Description
+===========
+Contains libraries (of data structures), practice problems from various areas of CS and mini-projects.
 
-###Libraries (inside libraries)
+Libraries (inside libraries)
+----------------------------
 - Binary Tree
 - Binary Search Tree
 - Singly Linked List
@@ -12,7 +14,8 @@ Author: Deep Aggarwal
 - Graph
 - Logging Framework
 
-###Projects
+Projects
+--------
 - Client-Server Socket Programming
 - Simple Unix Shell
 
