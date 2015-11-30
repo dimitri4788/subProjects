@@ -10,7 +10,7 @@
 Node::Node(int data) : _data(data), _next(nullptr), _prev(nullptr)
 {}
 
-Node::Node(int data, Node *nextNode, Node *prevNode) : _data(), _next(nextNode), _prev(prevNode)
+Node::Node(int data, Node *nextNode, Node *prevNode) : _data(data), _next(nextNode), _prev(prevNode)
 {}
 
 Node::~Node()
@@ -51,7 +51,7 @@ void Node::setPrev(Node * const prev)
  ******* Doubly Linked List *******
  **********************************
 */
-DoublyLinkedList::DoublyLinkedList() : _head(nullptr), _size(0)
+DoublyLinkedList::DoublyLinkedList() : _head(nullptr), _tail(nullptr), _size(0)
 {}
 
 DoublyLinkedList::~DoublyLinkedList()
@@ -64,6 +64,11 @@ Node * DoublyLinkedList::getHead() const
     return _head;
 }
 
+Node * DoublyLinkedList::getTail() const
+{
+    return _tail;
+}
+
 unsigned int DoublyLinkedList::getSize() const
 {
     return _size;
@@ -71,28 +76,30 @@ unsigned int DoublyLinkedList::getSize() const
 
 void DoublyLinkedList::insertFront(int data)
 {
-    Node *newNode = new Node(data);
-    newNode->_next = _head;
-    _head = newNode;
     _size++;
-}
-
-void DoublyLinkedList::insertBack(int data)
-{
     Node *newNode = new Node(data);
     if(_head == nullptr)
     {
         _head = newNode;
+        _tail = newNode;
+        return;
     }
-    else
-    {
-        Node *curr = _head;
-        while(curr->_next != nullptr)
-            curr = curr->_next;
+    newNode->_next = _head;
+    _head = newNode;
+}
 
-        curr->_next = newNode;
-    }
+void DoublyLinkedList::insertBack(int data)
+{
     _size++;
+    Node *newNode = new Node(data);
+    if(_tail == nullptr)
+    {
+        _head = newNode;
+        _tail = newNode;
+        return;
+    }
+    newNode->_prev = _tail;
+    _tail = newNode;
 }
 
 bool DoublyLinkedList::remove(int data)
@@ -172,5 +179,6 @@ void DoublyLinkedList::clear()
     }
 
     _head = nullptr;
+    _tail = nullptr;
     _size = 0;
 }

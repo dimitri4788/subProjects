@@ -3,7 +3,7 @@
 
 class Node
 {
-    friend class DoublyLinkedList
+    friend class DoublyLinkedList;
 
     public:
         Node(int data);
@@ -30,6 +30,7 @@ class DoublyLinkedList
         ~DoublyLinkedList();
 
         Node *getHead() const;
+        Node *getTail() const;
         unsigned int getSize() const;
 
         void insertFront(int data);
