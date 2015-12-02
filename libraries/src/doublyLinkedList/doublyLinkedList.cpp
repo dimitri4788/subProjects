@@ -123,6 +123,11 @@ bool DoublyLinkedList::remove(int data)
         {
             Node *temp = curr->_next;
             curr->_next = temp->_next;
+            if(temp->_next != nullptr)
+            {
+                temp->_next->_prev = curr;
+                temp->_next = nullptr;
+            }
             delete temp;
             curr = curr->_next;
             _size--;

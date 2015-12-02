@@ -38,3 +38,4 @@ add_subdirectory(test)
 #GTest Unit Tests
 enable_testing()
 add_test(NAME SinglyLinkedListTest COMMAND $<TARGET_FILE:test_singlyLinkedList>)
+add_test(NAME DoublyLinkedListTest COMMAND $<TARGET_FILE:test_doublyLinkedList>)
