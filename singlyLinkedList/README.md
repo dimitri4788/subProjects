@@ -1,13 +1,7 @@
-###Libraries
-- Binary Tree
-- Binary Search Tree
-- Singly Linked List
-- Doubly linked list
-- Stack
-- Queue
-- Hash Table
-- Graph
-- Logging Framework
+Singly Linked List
+==================
+
+A singly linked list in C++.
 
 How to Build
 ------------
@@ -20,7 +14,11 @@ $ make
 
 Usage
 -----
-*TODO*
+Running unit-tests
+```sh
+$ cd bin
+$ ./test_singlyLinkedList
+```
 
 Author
 ------
