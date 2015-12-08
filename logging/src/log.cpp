@@ -1,9 +1,16 @@
 #include "log.hpp"
+
 #include <cstdio>
 #include <ctime>
-#include <libconfig.h++>
 
-using namespace libconfig;
+Log::Log() : _logFileName("../lib/sampleLog.log")
+{}
+
+Log::~Log()
+{
+    _os << std::endl;
+    output(_os.str());
+}
 
 std::string nowTimeAndDate()
 {
@@ -20,53 +27,15 @@ std::string nowTimeAndDate()
     return buffer;
 }
 
-const char* getLogFileFullPath()
-{
-    std::string retPath = "";
-
-    Config cfg;
-    const char* configFile = "../config/configuration.cfg";
-    try
-    {
-        cfg.readFile(configFile);
-        const Setting& root = cfg.getRoot();
-        const Setting& loggingInfo = root["loggingPaths"];
-        std::string directoryPath, defaultFileName;
-        loggingInfo.lookupValue("directoryPath", directoryPath);
-        loggingInfo.lookupValue("defaultFileName", defaultFileName);
-        retPath = directoryPath + "/" + defaultFileName;
-        return retPath.c_str();
-    }
-    catch(const FileIOException &fioex)
-    {
-        return NULL;
-    }
-    catch(const ParseException &pex)
-    {
-        return NULL;
-    }
-
-    return NULL;
-}
-
-Log::Log()
-{}
-
-Log::~Log()
-{
-    _os << std::endl;
-    Output(_os.str());
-}
-
 std::ostringstream& Log::getOutputStream(LOG_LEVEL logLevel)
 {
     _os << "- " << nowTimeAndDate();
-    _os << " " << ToString(logLevel) << ": ";
+    _os << " " << toString(logLevel) << ": ";
     _os << "\t";
     return _os;
 }
 
-std::string Log::ToString(LOG_LEVEL logLevel)
+std::string Log::toString(LOG_LEVEL logLevel)
 {
 	static const char* const buffer[] = {"DEBUG", "ERROR", "INFO", "WARNING"};
     const int logLevelIndex = static_cast<int>(logLevel);
@@ -77,7 +46,7 @@ std::string Log::ToString(LOG_LEVEL logLevel)
     return buffer[logLevelIndex];
 }
 
-FILE*& Log::Stream(std::string streamTypeToUse)
+FILE*& Log::stream(std::string streamTypeToUse)
 {
     static FILE* pStream = NULL;
     if(streamTypeToUse == "stderr")
@@ -86,7 +55,7 @@ FILE*& Log::Stream(std::string streamTypeToUse)
     }
     else //If "file" is passed, use the file stream
     {
-        const char* logFile = getLogFileFullPath();
+        const char* logFile = Log::getLogFileName().c_str();
         if(logFile == NULL)
         {
             return stderr;
@@ -118,11 +87,16 @@ FILE*& Log::Stream(std::string streamTypeToUse)
     return pStream;
 }
 
-void Log::Output(const std::string& msg)
+void Log::output(const std::string& msg)
 {
-    FILE* pStream = Stream("file");
+    FILE* pStream = stream("file");
     if(pStream == NULL)
         return;
     fprintf(pStream, "%s", msg.c_str());
     fflush(pStream);
+}
+
+std::string Log::getLogFileName() const
+{
+    return _logFileName;
 }

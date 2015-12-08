@@ -35,7 +35,7 @@ class Log
          *
          * @return It returns the LOG_LEVEL in the string format
          */
-        static std::string ToString(LOG_LEVEL logLevel);
+        std::string toString(LOG_LEVEL logLevel);
 
         /**
          * @brief This function returns an output FILE stream where data
@@ -47,17 +47,20 @@ class Log
          *
          * @return It returns an output FILE pointer as reference
          */
-        static FILE*& Stream(std::string streamTypeToUse);
+        FILE*& stream(std::string streamTypeToUse);
 
         /**
          * @brief This funtions writes the @msg to the output FILE stream
          *
          * @param msg The message that needs to be written to the output FILE stream
          */
-        static void Output(const std::string& msg);
+        void output(const std::string& msg);
+
+        std::string getLogFileName() const;
 
     private:
         std::ostringstream _os;
+        std::string _logFileName;
 };
 
 #define LOG(level) \
